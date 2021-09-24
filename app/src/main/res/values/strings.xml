@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Calculator</string>
+    <string name="AppName">Calculator</string>
+    <string name="Slogan">Scientific Calculator</string>
+    <string name="defaultAnswer">0</string>
+    <string name="warning">Hiện tại chỉ hỗ trợ +, -, *, /, ^, (, ) và không xác định được khi nào tràn số. Đã cố gắng handle lỗi nhưng có thể vẫn còn lỗi</string>
+</resources>
