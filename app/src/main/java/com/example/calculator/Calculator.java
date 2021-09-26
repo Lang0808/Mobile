@@ -14,7 +14,7 @@ public class Calculator {
             if(!isOperator && (s.charAt(i)=='-' || s.charAt(i)=='+')){
                 int j=i;
                 boolean positive=true;
-                while(s.charAt(j)=='+'|| s.charAt(j)=='-'){
+                while(j<s.length() && (s.charAt(j)=='+'|| s.charAt(j)=='-')){
                     if(s.charAt(j)=='-') positive=!positive;
                     j++;
                 }
@@ -74,7 +74,7 @@ public class Calculator {
         return 0;
     }
 
-    static int calculateAnswer(String postfix){
+    static int calculateAnswer(String postfix) throws Exception {
         Stack<Integer>stack=new Stack<Integer>();
         for(int i=0;i<postfix.length();i++){
             int j=i;
@@ -83,8 +83,11 @@ public class Calculator {
             boolean b=(tmp=="+");
             Log.d("tmp: ", tmp+" "+String.valueOf(b));
             if(tmp.equals("+")){
-                if(stack.size()==1){
-
+                if(stack.size()==0){
+                    throw new Exception("Syntax Error");
+                }
+                else if(stack.size()==1){
+                    throw new Exception("Syntax Error");
                 }
                 else{
                     int a1=stack.pop();
@@ -95,9 +98,11 @@ public class Calculator {
 
             }
             else if(tmp.equals("-")){
-                if(stack.size()==1){
-                    int a1=stack.pop();
-                    stack.push(-a1);
+                if(stack.size()==0){
+                    throw new Exception("Syntax Error");
+                }
+                else if(stack.size()==1){
+                    throw new Exception("Syntax Error");
                 }
                 else{
                     int a1=stack.pop();
@@ -108,8 +113,8 @@ public class Calculator {
 
             }
             else if(tmp.equals("*")){
-                if(stack.size()==1){
-                    // ERROR
+                if(stack.size()<=1){
+                    throw new Exception("Syntax Error");
                 }
                 else{
                     int a1=stack.pop();
@@ -120,14 +125,20 @@ public class Calculator {
 
             }
             else if(tmp.equals("/")){
-                if(stack.size()==1){
-                    // Syntax error
+                if(stack.size()<=1){
+                    throw new Exception("Syntax Error");
                 }
                 else{
-                    int a1=stack.pop();
-                    int a2=stack.pop();
-                    int a3=a2/a1;
-                    stack.push(a3);
+                    try{
+                        int a1=stack.pop();
+                        int a2=stack.pop();
+                        int a3=a2/a1;
+                        stack.push(a3);
+                    }
+                    catch(ArithmeticException e){
+                        throw new Exception("Something wrong");
+                    }
+
                 }
 
             }
@@ -138,6 +149,9 @@ public class Calculator {
                 stack.push(Integer.parseInt(tmp));
             }
             i=j;
+        }
+        if(stack.empty() || stack.size()>=2){
+            throw new Exception("Syntax ERROR");
         }
         return stack.pop();
     }
