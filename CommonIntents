@@ -1,0 +1,46 @@
+Dịch từ cái này: https://developer.android.com/guide/components/intents-common 
+
+1. Arlam
+	a. Tạo arlam
+		action: ACTION_SET_ARLAM
+		Các extra:
+			+ EXTRA_HOUR
+			+ EXTRA_MINUTES
+			+ EXTRA_MESSAGE
+			+ EXTRA_DAY: 1  array list bao gồm mọi weekday mà arlam này repeated.Phải là số int được khai báo trong Calendar như MONDAY. Nếu one-time arlam, không cần cái này
+			+ EXTRA_RINGTONE: URI thể hiện ringtone nào được sử dụng cho arlam này. VALUE_RINGTONE_SILENT nếu không có ringtone. Nếu ringtone mặc định thì không cần specify extra này
+			+ EXTRA_VIBRATE: Giá trị boolean, cho biết arlam này có rung hay lhoong
+			+ EXTRA_SKIP_UI: Giá trị boolean cho biết app tương ứng có nên skip qua UI xác nhận arlam hay không
+		permission: SET_ARLAM
+	b. Tạo timer
+		action: ACTION_SET_TIMER
+		Các extra:
+			+ EXTRA_LENGTH: độ dài timer, theo giây
+			+ EXTRA_MESSAGE
+			+ EXTRA_SKIP_UI
+		permission: ACTION_SET_TIMER
+	c. Show tất cả arlam
+		action: ACTION_SHOW_ARLAMS
+2. Calendar
+	a. Thêm 1 sự kiện Calendar
+		action: ACTION_INSERT
+		Data URI: Events.CONTENT_URI
+		MIME Type: "vnd.android.cursor.dir/event"
+		Các extra:
+			+ EXTRA_EVENT_ALL_DAY: boolean, cho biết đây có phải là sự kiện allday không
+			+ EXTRA_EVENT_BEGIN_TIME: milliseconds
+			+ EXTRA_EVENT_END_TIME: milliseconds
+			+ TITLE: title của sự kiện
+			+ DESCRIPTION: miêu tả về sự kiện
+			+ EVENT_LOCATION
+			+ EXTRA_EMAIL: 1 danh sách, cách nhau bằng dấy phẩy, gồm email của các người mời
+3. Camera
+	a. Chụp 1 bức hình/video và trả về
+		action: ACTION_IMAGE_CAPTURE hoặc ACTION_VIDEO_CAPTURE
+		Data URI Scheme: không có
+		Các extra:
+			+ EXTRA_OUTPUT: địa chỉ URI để lưu picture/video (như 1 Uri object)
+		Khi camera trả lại focus cho activity (nhận được onActivityResult() callback), bạn truy cập photo/video qua EXTRA_OUTPUT value
+
+		
+ 
